@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Icons</title>
+</head>
+<body>
+    <canvas id="canvas192" width="192" height="192"></canvas>
+    <canvas id="canvas512" width="512" height="512"></canvas>
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Video frame
+            const margin = size * 0.1;
+            const frameWidth = size - (margin * 2);
+            const frameHeight = frameWidth * 1.7; // Portrait aspect ratio
+            const frameY = (size - frameHeight) / 2;
+            
+            // Frame background
+            ctx.fillStyle = '#333333';
+            ctx.fillRect(margin, frameY, frameWidth, frameHeight);
+            
+            // Play button
+            ctx.fillStyle = '#FFFFFF';
+            const triangleSize = size * 0.3;
+            const triangleX = size / 2;
+            const triangleY = size / 2;
+            
+            ctx.beginPath();
+            ctx.moveTo(triangleX - triangleSize/2, triangleY - triangleSize/2);
+            ctx.lineTo(triangleX + triangleSize/2, triangleY);
+            ctx.lineTo(triangleX - triangleSize/2, triangleY + triangleSize/2);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        // Draw icons
+        drawIcon(document.getElementById('canvas192'), 192);
+        drawIcon(document.getElementById('canvas512'), 512);
+
+        // Convert to PNG and download
+        function downloadIcon(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        downloadIcon(document.getElementById('canvas192'), 'icon-192x192.png');
+        downloadIcon(document.getElementById('canvas512'), 'icon-512x512.png');
+    </script>
+</body>
+</html> 
